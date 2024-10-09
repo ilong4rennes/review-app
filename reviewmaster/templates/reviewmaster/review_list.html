@@ -1,0 +1,12 @@
+<h2>Reviews for {{ business.name }}</h2>
+
+{% if reviews %}
+<ul>
+    {% for review in reviews %}
+    <li>{{ review.user.name }} rated {{ review.rating }} stars.</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No reviews available for this business.</p>
+{% endif %}
+<a href="{% url 'review_create' business.id %}">Add a review</a>

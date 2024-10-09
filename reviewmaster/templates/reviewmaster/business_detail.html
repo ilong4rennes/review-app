@@ -1,0 +1,14 @@
+{% if business %}
+<h2>{{ business.name }}</h2>
+<p>Located in {{ business.city }}</p>
+
+<h3>Reviews</h3>
+<ul>
+    {% for review in business.review_set.all %}
+    <li>{{ review.user.name }} rated this {{ review.rating }} stars.</li>
+    {% endfor %}
+</ul>
+
+{% else %}
+<p>The business does not exist.</p>
+{% endif %}
