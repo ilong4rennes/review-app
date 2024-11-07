@@ -8,7 +8,19 @@ def user_index(request):
 
 def user_detail(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    return render(request, 'reviewmaster/user_detail.html', {'user': user})
+    rated_businesses = user.rated_businesses()
+    content_based_recommended_businesses = user.content_based_recommended_businesses()
+    collaborative_based_recommended_businesses = user.collaborative_based_recommended_businesses()
+    return render(
+        request,
+        'reviewmaster/user_detail.html',
+        {
+            'user': user,
+            'rated_businesses': rated_businesses,
+            'content_based_recommended_businesses': content_based_recommended_businesses,
+            'collaborative_based_recommended_businesses': collaborative_based_recommended_businesses
+        }
+    )
 
 def business_index(request):
     businesses = Business.objects.all()
