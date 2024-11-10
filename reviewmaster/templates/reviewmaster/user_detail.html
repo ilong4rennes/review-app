@@ -1,6 +1,34 @@
 {% if user %}
 <p> User Id is {{ user.id }}. </p>
 <p> User name is {{user.name}} </p>
+
+<div>
+    User has rated the following businesses:
+    <ul>
+        {% for business in rated_businesses %}
+            <li><a href="{% url 'business_detail' business.id %}">{{ business.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div>
+    collaborative_based_recommended_businesses:
+    <ul>
+        {% for business in collaborative_based_recommended_businesses %}
+            <li><a href="{% url 'business_detail' business.id %}">{{ business.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div>
+    content_based_recommended_businesses:
+    <ul>
+        {% for business in content_based_recommended_businesses %}
+            <li><a href="{% url 'business_detail' business.id %}">{{ business.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
 {% else %}
 <p> User doesn't exist. </p>
 {% endif %}
