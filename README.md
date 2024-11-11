@@ -1,53 +1,114 @@
-# ReviewMaster
+# Review-Master
 
-**ReviewMaster** is a Django-based web application similar to Yelp, allowing users to review businesses and share their ratings.
+**Review-Master** is a Django-based web application similar to Yelp, where users can review various businesses and services. This README will guide you through setting up and running the project on your local machine.
 
-## Features
+## Prerequisites
 
-- Users can browse businesses and view details about each one.
-- Users can submit reviews and rate businesses.
-- Businesses and reviews are linked via a many-to-many relationship, allowing users to review multiple businesses.
+To run Review-Master, you need the following installed on your system:
 
-## Installation
+- **Python** (latest version)
+- **Homebrew** (for macOS users)
+- **PostgreSQL** (version 14)
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/ilong4rennes/review-master.git
-    cd review-master
-    ```
+## Getting Started
 
-2. Create a virtual environment and activate it:
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
+### Step 1: Fork and Clone the Repository
 
-3. Install dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
+1. **Fork this repository** on GitHub to make your own copy.
+2. **Clone the repository** to your local machine:
+   ```bash
+   git clone https://github.com/ilong4rennes/review-master.git
+   cd review-master
+   ```
 
-4. Run migrations:
-    ```bash
-    python manage.py makemigrations
-    python manage.py migrate
-    ```
+### Step 2: Install Python and Virtual Environment
 
-5. Start the development server:
-    ```bash
-    python manage.py runserver
-    ```
+1. **Install Python** (if not already installed):
+   ```bash
+   brew install python
+   ```
 
-6. Visit the app at `http://127.0.0.1:8000/`.
+   Note: `pip`, Python’s package manager, will be installed automatically.
 
-## Usage
+2. **Install Virtualenv** (if not already installed):
+   ```bash
+   pip3 install virtualenv
+   ```
 
-- Visit `/businesses/` to view the list of businesses.
-- Visit `/users/` to view the list of users.
-- Add reviews to businesses and explore the business review system.
+### Step 3: Install and Configure PostgreSQL
 
-## Contributing
+1. **Install PostgreSQL 14**:
+   ```bash
+   brew install postgresql@14
+   ```
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
+2. **Start the PostgreSQL service**:
+   ```bash
+   brew services start postgresql@14
+   ```
 
+3. **Create a PostgreSQL Database and User**:
 
+   - Open the PostgreSQL interactive terminal:
+     ```bash
+     psql postgres
+     ```
+
+   - Run the following commands in the terminal to set up your database and user:
+     ```sql
+     CREATE DATABASE mydb;
+     CREATE USER myuser WITH PASSWORD 'mypassword';
+     ALTER ROLE myuser SET client_encoding TO 'utf8';
+     ALTER ROLE myuser SET default_transaction_isolation TO 'read committed';
+     ALTER ROLE myuser SET timezone TO 'UTC';
+     GRANT ALL PRIVILEGES ON DATABASE mydb TO myuser;
+     ```
+
+   - Exit the PostgreSQL terminal by typing `\q`.
+
+### Step 4: Set Up the Django Project
+
+1. **Create and Activate a Virtual Environment**:
+   ```bash
+   virtualenv venv
+   source venv/bin/activate
+   ```
+
+2. **Install the Required Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Configure the Database Settings**:
+   - In the Django project directory, open `settings.py`.
+   - Update the database configuration to match the PostgreSQL setup:
+     ```python
+     DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.postgresql',
+             'NAME': 'mydb',
+             'USER': 'myuser',
+             'PASSWORD': 'mypassword',
+             'HOST': 'localhost',
+             'PORT': '',
+         }
+     }
+     ```
+
+4. **Run Database Migrations**:
+   ```bash
+   python manage.py migrate
+   ```
+
+### Step 5: Run the Django Development Server
+
+1. **Start the server**:
+   ```bash
+   python manage.py runserver
+   ```
+
+2. Open a browser and navigate to `http://127.0.0.1:8000` to view the application.
+
+---
+
+This completes the setup for Review-Master. Enjoy exploring your Yelp-like web application!
