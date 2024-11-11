@@ -100,14 +100,26 @@ To run Review-Master, you need the following installed on your system:
    python manage.py migrate
    ```
 
-### Step 5: Run the Django Development Server
+### Step 5: Create a Superuser for the Admin Panel
+
+To access the Django admin panel, create a superuser:
+
+```bash
+python manage.py createsuperuser
+```
+
+Follow the prompts to set up an admin account.
+
+### Step 6: Run the Django Development Server
 
 1. **Start the server**:
    ```bash
    python manage.py runserver
    ```
 
-2. Open a browser and navigate to `http://127.0.0.1:8000` to view the application.
+2. Open a browser and navigate to `http://127.0.0.1:8000/reviewmaster` to view the application.
+
+To access the admin panel, go to `http://127.0.0.1:8000/admin` and log in with the superuser credentials you created.
 
 ---
 
