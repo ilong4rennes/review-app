@@ -1,6 +1,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import User, Business, Review
 from .forms import ReviewForm
+import requests
+from django.http import JsonResponse
+from django.conf import settings
 
 def user_index(request):
     users = User.objects.all()
@@ -30,6 +33,21 @@ def business_detail(request, business_id):
     business = get_object_or_404(Business, pk=business_id)
     return render(request, 'reviewmaster/business_detail.html', {'business': business})
 
+def demo_yelp_businesses(request):
+    url = "https://api.yelp.com/v3/businesses/search"
+
+    headers = {
+        "Authorization": "Bearer " + settings.YELP_API_KEY
+    }
+    params = {
+        'location': 'Pittsburgh',
+        'limit': 20
+    }
+
+    response = requests.get(url, headers=headers, params=params)
+
+    return JsonResponse(response.json(), json_dumps_params={'indent': 4}, safe=False)
+
 def review_list(request, business_id):
     business = get_object_or_404(Business, pk=business_id)
     reviews = Review.objects.filter(business=business)
@@ -47,3 +65,19 @@ def review_create(request, business_id):
     else:
         form = ReviewForm()
     return render(request, 'reviewmaster/review_form.html', {'form': form, 'business': business})
+
+def demo_yelp_business_reviews(request, business_id):
+    url = f"https://api.yelp.com/v3/businesses/{business_id}/reviews"
+
+    headers = {
+        "Authorization": "Bearer " + settings.YELP_API_KEY
+    }
+
+    params = {
+        'limit': 10
+    }
+
+    response = requests.get(url, headers=headers, params=params)
+    return JsonResponse(response.json(), json_dumps_params={'indent': 4}, safe=False)
+
+
