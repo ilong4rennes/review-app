@@ -11,4 +11,7 @@ urlpatterns = [
 urlpatterns += [
     path('businesses/<int:business_id>/reviews/', views.review_list, name='review_list'),
     path('businesses/<int:business_id>/reviews/new/', views.review_create, name='review_create'),
+    path('demo/yelp-businesses', views.demo_yelp_businesses),
+    path('demo/yelp-business-reviews/<slug:business_id>', views.demo_yelp_business_reviews),
+    # path('')
 ]

@@ -2,6 +2,10 @@ from django.db import models
 
 class User(models.Model):
     name = models.CharField(max_length = 200)
+    string_id = models.CharField(max_length = 22, primary_key=True)
+    profile_url = models.URLField(max_length=1000, null=True)
+    image_url = models.URLField(max_length=1000, null=True)
+    name = models.CharField(max_length=200)
     def __str__(self):
         return self.name
 
@@ -47,5 +51,8 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=RATING_STARS)
+
+    # Update Business
+
     def __str__(self):
         return "{} rates {} at {} star.".format(str(self.user), str(self.business), str(self.rating))
