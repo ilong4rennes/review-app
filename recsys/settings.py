@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+# Load .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -98,11 +103,10 @@ DATABASES = {
     },
 }
 
-# YELP_API_KEY = 'HzXJIm0oUjryD6zxt_TZRYBeVIBMgtBvpZnf8HR5ppJ5Y4l-RfZtebVJCXShSilTHQNQGOesKG0_L0nHsnQFyzUCz6DxU9ekP6dPt-6z_5DA8Eu6_lvmwqVgYCA0Z3Yx'
-# YELP_API_KEY = '0e1AiQlP0qI2QcgWPG-0AvwTDPqNOo__j8sfU7G2an8Y6kQpA7a5sUD4ERsKsE5_5ddSMGJ96-IXSih4C5wB8YvlklaWNudUFgsWXBtY_5M3X1T7ha0-3wfMPAUNZHYx'
+YELP_API_KEY = os.getenv('YELP_API_KEY', 'default-value-if-missing')
+print(YELP_API_KEY)
 
-YELP_API_KEY = '0elAiQlP0qI2QcgWPG-0AvwTDPqNOo__j8sfU7G2an8Y6kQpA7a5sUD4ERsKsE5_5ddSMGJ96-IXSih4C5wB8YvlklaWNudUFgsWXBtY_5M3X1T7haO-3wfMPAUNZHYx'
-
+# YELP_API_KEY = '0elAiQlP0qI2QcgWPG-0AvwTDPqNOo__j8sfU7G2an8Y6kQpA7a5sUD4ERsKsE5_5ddSMGJ96-IXSih4C5wB8YvlklaWNudUFgsWXBtY_5M3X1T7haO-3wfMPAUNZHYx'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
